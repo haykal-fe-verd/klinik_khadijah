@@ -6,6 +6,7 @@ import {
     Cog,
     LayoutDashboard,
     Scale3d,
+    ShieldCheck,
     Siren,
     Stethoscope,
 } from "lucide-react";
@@ -18,6 +19,7 @@ export const navigations = [
         color: "text-sky-500",
         role: ["admin", "dokter", "pasien"],
     },
+    // admin
     {
         label: "Rekam Medis",
         href: route("rekam-medis.index"),
@@ -73,5 +75,14 @@ export const navigations = [
         icon: Cog,
         color: "text-red-500",
         role: ["admin"],
+    },
+
+    // dokter
+    {
+        label: "Periksa Pasien",
+        href: route("periksa.index"),
+        icon: ShieldCheck,
+        color: "text-amber-500",
+        role: ["dokter"],
     },
 ];

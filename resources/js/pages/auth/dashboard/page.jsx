@@ -17,6 +17,13 @@ function Dashboard() {
         antrianBerjalan,
         chartPendapatan,
         bulan,
+
+        //dokter
+        totalPasienRelasiDokter,
+        totalPasienMenunggu,
+        totalPasienDiperiksa,
+        totalPasienSelesai,
+        chartTotalPasien,
     } = usePage().props;
 
     return (
@@ -40,7 +47,17 @@ function Dashboard() {
                         bulan={bulan}
                     />
                 )}
-                {auth.user.role == "dokter" && <Dokter />}
+                {auth.user.role == "dokter" && (
+                    <Dokter
+                        totalPasienRelasiDokter={totalPasienRelasiDokter}
+                        totalPasienMenunggu={totalPasienMenunggu}
+                        totalPasienDiperiksa={totalPasienDiperiksa}
+                        totalPasienSelesai={totalPasienSelesai}
+                        antrianBerjalan={antrianBerjalan}
+                        chartTotalPasien={chartTotalPasien}
+                        bulan={bulan}
+                    />
+                )}
                 {auth.user.role == "pasien" && <Pasien />}
             </div>
         </AuthLayout>

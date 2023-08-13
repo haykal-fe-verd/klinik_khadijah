@@ -60,6 +60,32 @@ class DashboardController extends Controller
             $chartPendapatan[] = $dataPendapatan[$key] ?? 0;
         }
 
-        return Inertia::render('auth/dashboard/page', compact('bulan', 'totalAntrianHariIni', 'totalPelayanan', 'totalDokter', 'totalPasien', 'antrianBerjalan', 'chartPendapatan'));
+        // dokter
+        $totalPasienRelasiDokter = RekamMedis::where('dokter_id', $request->user()->userData()->nik)->count();
+        $totalPasienMenunggu = RekamMedis::where('dokter_id', $request->user()->userData()->nik)
+            ->where('status', 'menunggu')->count();
+        $totalPasienDiperiksa = RekamMedis::where('dokter_id', $request->user()->userData()->nik)
+            ->where('status', 'diperiksa')->count();
+        $totalPasienSelesai = RekamMedis::where('dokter_id', $request->user()->userData()->nik)
+            ->where('status', 'selesai')->count();
+
+        $dataPasien = RekamMedis::where('dokter_id', $request->user()->userData()->nik)
+            ->selectRaw('MONTH(created_at) AS bulan, COUNT(*) AS total_pasien')
+            ->whereYear('created_at', $currentYear)
+            ->groupBy('bulan')
+            ->orderBy('bulan')
+            ->pluck('total_pasien', 'bulan')
+            ->toArray();
+
+
+        $chartTotalPasien = [];
+
+        foreach ($bulan as $key => $value) {
+            $chartTotalPasien[] = $dataPasien[$key] ?? 0;
+        }
+
+        // pasien
+
+        return Inertia::render('auth/dashboard/page', compact('bulan', 'totalAntrianHariIni', 'totalPelayanan', 'totalDokter', 'totalPasien', 'antrianBerjalan', 'chartPendapatan', 'totalPasienRelasiDokter', 'totalPasienMenunggu', 'totalPasienDiperiksa', 'totalPasienSelesai', 'chartTotalPasien'));
     }
 }

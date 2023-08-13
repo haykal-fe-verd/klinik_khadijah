@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KlinikController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PelayananController;
+use App\Http\Controllers\PeriksaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\TransaksiController;
@@ -94,6 +95,18 @@ Route::middleware('auth')->group(function () {
 
         // antrian
         Route::get('antrian', [AntrianController::class, 'index'])->name('antrian.index');
+    });
+
+    // dokter
+    Route::middleware('can:dokter')->group(function () {
+        // periksa
+        Route::get('periksa-pasien', [PeriksaController::class, 'index'])->name('periksa.index');
+        Route::put('periksa-pasien/{id}', [PeriksaController::class, 'update'])->name('periksa.update');
+    });
+
+    // pasien
+    Route::middleware('can:pasien')->group(function () {
+        //
     });
 });
 
