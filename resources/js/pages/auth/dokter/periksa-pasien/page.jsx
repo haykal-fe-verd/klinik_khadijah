@@ -17,7 +17,6 @@ import Modal from "./modal";
 
 function PeriksaPasien() {
     const { periksa } = usePage().props;
-    console.log("🚀  periksa:", periksa);
     const [open, setOpen] = React.useState(false);
 
     const { data, setData, put, processing, errors, reset } = useForm({

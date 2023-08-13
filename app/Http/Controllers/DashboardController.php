@@ -85,7 +85,26 @@ class DashboardController extends Controller
         }
 
         // pasien
+        $rekamMedisPasien = RekamMedis::where('pasien_id', $request->user()->userData()->nik)->count();
+        $statusSelesai = RekamMedis::where('pasien_id', $request->user()->userData()->nik)->where('status', 'selesai')->count();
+        $pembayaranSelesai = RekamMedis::where('pasien_id', $request->user()->userData()->nik)->where('status_pembayaran', 1)->count();
 
-        return Inertia::render('auth/dashboard/page', compact('bulan', 'totalAntrianHariIni', 'totalPelayanan', 'totalDokter', 'totalPasien', 'antrianBerjalan', 'chartPendapatan', 'totalPasienRelasiDokter', 'totalPasienMenunggu', 'totalPasienDiperiksa', 'totalPasienSelesai', 'chartTotalPasien'));
+        $dataPengeluaran = DB::table('tb_rekam_medis')
+            ->selectRaw('MONTH(tb_rekam_medis.created_at) AS bulan, SUM(tb_pelayanan.harga) AS total_pengeluran')
+            ->leftJoin('tb_pelayanan', 'tb_pelayanan.id', '=', 'tb_rekam_medis.pelayanan_id')
+            ->where('status_pembayaran', 1)
+            ->where('pasien_id', $request->user()->userData()->nik)
+            ->groupBy('bulan')
+            ->orderBy('bulan')
+            ->pluck('total_pengeluran', 'bulan')
+            ->toArray();
+
+        $chartPengeluaran = [];
+
+        foreach ($bulan as $key => $value) {
+            $chartPengeluaran[] = $dataPengeluaran[$key] ?? 0;
+        }
+
+        return Inertia::render('auth/dashboard/page', compact('bulan', 'totalAntrianHariIni', 'totalPelayanan', 'totalDokter', 'totalPasien', 'antrianBerjalan', 'chartPendapatan', 'totalPasienRelasiDokter', 'totalPasienMenunggu', 'totalPasienDiperiksa', 'totalPasienSelesai', 'chartTotalPasien', 'rekamMedisPasien', 'statusSelesai', 'pembayaranSelesai', 'chartPengeluaran'));
     }
 }

@@ -15,10 +15,10 @@ use App\Http\Controllers\PelayananController;
 use App\Http\Controllers\PeriksaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
+use App\Http\Controllers\RekamMedisPasien;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 
 Route::middleware('guest')->group(function () {
@@ -39,7 +39,6 @@ Route::middleware('guest')->group(function () {
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
     Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store');
 });
-
 
 Route::middleware('auth')->group(function () {
     // logout
@@ -106,7 +105,11 @@ Route::middleware('auth')->group(function () {
 
     // pasien
     Route::middleware('can:pasien')->group(function () {
-        //
+        // rekam-medis
+        Route::get('rekam-medis-pasien', [RekamMedisPasien::class, 'index'])->name('rekam-medis-pasien.index');
+        Route::post('rekam-medis-pasien', [RekamMedisPasien::class, 'store'])->name('rekam-medis-pasien.store');
+        Route::put('rekam-medis-pasien/{id}', [RekamMedisPasien::class, 'update'])->name('rekam-medis-pasien.update');
+        Route::get('rekam-medis-pasien/{id}', [RekamMedisPasien::class, 'show'])->name('rekam-medis-pasien.show');
     });
 });
 

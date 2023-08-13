@@ -15,7 +15,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import moment from "moment/moment";
 
 function Detail({ isShowDetail, setIsShowDetail, detailData, setDetailData }) {
-    console.log("🚀  detailData:", detailData);
     return (
         <Dialog
             open={isShowDetail}

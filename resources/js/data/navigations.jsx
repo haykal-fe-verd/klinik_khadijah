@@ -85,4 +85,11 @@ export const navigations = [
         color: "text-amber-500",
         role: ["dokter"],
     },
+    {
+        label: "Rekam Medis",
+        href: route("rekam-medis-pasien.index"),
+        icon: Clapperboard,
+        color: "text-yellow-500",
+        role: ["pasien"],
+    },
 ];
