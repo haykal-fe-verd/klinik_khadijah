@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -47,6 +48,10 @@ Route::middleware('auth')->group(function () {
     // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // change-password
+    Route::get('password', [ChangePasswordController::class, 'index'])->name('password.index');
+    Route::put('password', [ChangePasswordController::class, 'update'])->name('password.update');
 
     // dashboard
     Route::get('/dashboard', DashboardController::class)->name('dashboard');

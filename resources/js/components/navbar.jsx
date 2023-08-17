@@ -58,9 +58,14 @@ function Navbar() {
                                 <span>Profile</span>
                             </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="flex items-center gap-x-3">
-                            <Settings className="w-4 h-4" />
-                            <span>Ganti Password</span>
+                        <DropdownMenuItem>
+                            <Link
+                                href={route("password.index")}
+                                className="flex items-center gap-x-3"
+                            >
+                                <Settings className="w-4 h-4" />
+                                <span>Ganti Password</span>
+                            </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem

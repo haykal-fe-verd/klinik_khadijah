@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tb_pasien', function (Blueprint $table) {
             $table->string('nik')->primary();
-            $table->string('no_bpjs');
+            $table->string('no_bpjs')->nullable();
             $table->date('tanggal_lahir');
             $table->string('tempat_lahir');
             $table->enum('jenis_kelamin', ['pria', 'wanita']);

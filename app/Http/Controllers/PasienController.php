@@ -69,7 +69,6 @@ class PasienController extends Controller
         Pasien::create([
             'user_id' => $user->id,
             'nik' => $request->nik,
-            'no_bpjs' => $request->no_bpjs,
             'tanggal_lahir' => $request->tanggal_lahir,
             'tempat_lahir' => $request->tempat_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,

@@ -16,6 +16,14 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 function Register() {
     const { klinik } = usePage().props;
@@ -24,6 +32,14 @@ function Register() {
         name: "",
         email: "",
         password: "",
+        nik: "",
+        tanggal_lahir: "",
+        tempat_lahir: "",
+        jenis_kelamin: "",
+        no_hp: "",
+        alamat: "",
+        umur: "",
+        riwayat_penyakit: "",
     });
 
     const onSubmit = (e) => {
@@ -34,7 +50,7 @@ function Register() {
     return (
         <GuestLayout>
             <Head title="Register" />
-            <section className="flex flex-col items-center justify-center h-screen px-6 py-8 mx-auto">
+            <section className="flex flex-col items-center justify-center px-6 py-8 mx-auto">
                 <Card className="w-full rounded-lg shadow-2xl sm:max-w-md">
                     <CardHeader>
                         <CardTitle className="flex flex-col items-center justify-center">
@@ -102,6 +118,143 @@ function Register() {
                                     }
                                 />
                                 <InputError message={errors.password} />
+                            </div>
+
+                            {/* nik */}
+                            <div>
+                                <Label htmlFor="nik">NIK</Label>
+                                <Input
+                                    id="nik"
+                                    type="text"
+                                    name="nik"
+                                    autoComplete="nik"
+                                    placeholder="Example"
+                                    value={data.nik}
+                                    onChange={(e) =>
+                                        setData("nik", e.target.value)
+                                    }
+                                />
+
+                                <InputError message={errors.nik} />
+                            </div>
+
+                            {/* tanggal_lahir */}
+                            <div>
+                                <Label htmlFor="tanggal_lahir">
+                                    Tanggal Lahir
+                                </Label>
+                                <Input
+                                    id="tanggal_lahir"
+                                    type="date"
+                                    name="tanggal_lahir"
+                                    autoComplete="tanggal_lahir"
+                                    placeholder="Example"
+                                    value={data.tanggal_lahir}
+                                    onChange={(e) =>
+                                        setData("tanggal_lahir", e.target.value)
+                                    }
+                                />
+
+                                <InputError message={errors.tanggal_lahir} />
+                            </div>
+
+                            {/* tempat_lahir */}
+                            <div>
+                                <Label htmlFor="tempat_lahir">
+                                    Tempat Lahir
+                                </Label>
+                                <Input
+                                    id="tempat_lahir"
+                                    type="text"
+                                    name="tempat_lahir"
+                                    autoComplete="tempat_lahir"
+                                    placeholder="Example"
+                                    value={data.tempat_lahir}
+                                    onChange={(e) =>
+                                        setData("tempat_lahir", e.target.value)
+                                    }
+                                />
+
+                                <InputError message={errors.tempat_lahir} />
+                            </div>
+
+                            {/* no_hp */}
+                            <div>
+                                <Label htmlFor="no_hp">No HP</Label>
+                                <Input
+                                    id="no_hp"
+                                    type="text"
+                                    name="no_hp"
+                                    autoComplete="no_hp"
+                                    placeholder="Example"
+                                    value={data.no_hp}
+                                    onChange={(e) =>
+                                        setData("no_hp", e.target.value)
+                                    }
+                                />
+
+                                <InputError message={errors.no_hp} />
+                            </div>
+
+                            {/* umur */}
+                            <div>
+                                <Label htmlFor="umur">Umur</Label>
+                                <Input
+                                    id="umur"
+                                    type="text"
+                                    name="umur"
+                                    autoComplete="umur"
+                                    placeholder="Example"
+                                    value={data.umur}
+                                    onChange={(e) =>
+                                        setData("umur", e.target.value)
+                                    }
+                                />
+
+                                <InputError message={errors.umur} />
+                            </div>
+
+                            {/* jenis_kelamin */}
+                            <div>
+                                <Label htmlFor="jenis_kelamin">
+                                    Jenis Kelamin
+                                </Label>
+                                <Select
+                                    onValueChange={(e) =>
+                                        setData("jenis_kelamin", e)
+                                    }
+                                    defaultValue={data.jenis_kelamin}
+                                >
+                                    <SelectTrigger className="mt-2 bg-white">
+                                        <SelectValue placeholder="Pilih jenis kelamin" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="pria">
+                                            Pria
+                                        </SelectItem>
+                                        <SelectItem value="wanita">
+                                            Wanita
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <InputError message={errors.jenis_kelamin} />
+                            </div>
+
+                            {/* alamat */}
+                            <div>
+                                <Label htmlFor="alamat">Alamat</Label>
+                                <Textarea
+                                    className="mt-2 bg-white"
+                                    id="alamat"
+                                    name="alamat"
+                                    value={data.alamat}
+                                    onChange={(e) =>
+                                        setData("alamat", e.target.value)
+                                    }
+                                />
+
+                                <InputError message={errors.alamat} />
                             </div>
                         </CardContent>
                         <CardFooter>
