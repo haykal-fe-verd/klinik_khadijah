@@ -14,7 +14,7 @@ function Sidebar() {
     );
 
     return (
-        <div className="flex flex-col h-full py-4 space-y-4 text-white bg-slate-900 ">
+        <div className="flex flex-col h-full py-4 space-y-4 text-white bg-slate-900">
             <div className="flex-1 px-3 py-2">
                 <Link
                     href={route("dashboard")}
