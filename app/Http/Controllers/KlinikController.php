@@ -33,6 +33,10 @@ class KlinikController extends Controller
 
         $klinik = Klinik::first();
 
+        if (!$klinik) {
+            $klinik = new Klinik();
+        }
+
         $klinik->nama_klinik = $request->input('nama_klinik');
         $klinik->tentang_klinik = $request->input('tentang_klinik');
         $klinik->alamat = $request->input('alamat');
