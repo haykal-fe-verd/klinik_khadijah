@@ -26,6 +26,10 @@ Route::middleware('guest')->group(function () {
     // home
     Route::get('/', HomeController::class)->name('home');
 
+    // no.antrian
+    Route::get('/no-antrian', [AntrianController::class, 'noAntrian'])->name('no.antrian');
+
+
     // register
     Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('register', [RegisteredUserController::class, 'store'])->name('register.store');

@@ -1,6 +1,6 @@
 import React from "react";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 import GuestLayout from "@/layouts/guest-layout";
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 function Register() {
     const { klinik } = usePage().props;
+    const [showPassword, setShowPassword] = React.useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
@@ -46,6 +47,27 @@ function Register() {
         e.preventDefault();
         post(route("register.store"));
     };
+
+    const calculateAge = (birthdate) => {
+        const today = new Date();
+        const birthDate = new Date(birthdate);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+
+        if (
+            monthDiff < 0 ||
+            (monthDiff === 0 && today.getDate() < birthDate.getDate())
+        ) {
+            age--;
+        }
+
+        return age;
+    };
+
+    React.useEffect(() => {
+        const age = calculateAge(data.tanggal_lahir);
+        setData("umur", age.toString());
+    }, [data.tanggal_lahir]);
 
     return (
         <GuestLayout>
@@ -75,7 +97,7 @@ function Register() {
                                     type="text"
                                     name="name"
                                     autoComplete="name"
-                                    placeholder="Example"
+                                    placeholder="Masukkan nama lengkap anda"
                                     value={data.name}
                                     onChange={(e) =>
                                         setData("name", e.target.value)
@@ -106,17 +128,37 @@ function Register() {
                             {/* password */}
                             <div>
                                 <Label htmlFor="password">Password</Label>
-                                <Input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    placeholder="••••••••"
-                                    autoComplete="current-password"
-                                    value={data.password}
-                                    onChange={(e) =>
-                                        setData("password", e.target.value)
-                                    }
-                                />
+                                <div className="relative">
+                                    <Input
+                                        id="password"
+                                        name="password"
+                                        type={
+                                            showPassword ? "text" : "password"
+                                        }
+                                        placeholder="••••••••"
+                                        autoComplete="current-password"
+                                        value={data.password}
+                                        onChange={(e) =>
+                                            setData("password", e.target.value)
+                                        }
+                                    />
+                                    <button
+                                        type="button"
+                                        id="showPassword"
+                                        name="showPassword"
+                                        aria-label="showPassword"
+                                        className="absolute inset-y-0 right-0 flex items-center p-3 text-white rounded-tr-md rounded-br-md bg-primary"
+                                        onClick={() =>
+                                            setShowPassword(!showPassword)
+                                        }
+                                    >
+                                        {showPassword ? (
+                                            <EyeOff className="w-4 h-4" />
+                                        ) : (
+                                            <Eye className="w-4 h-4" />
+                                        )}
+                                    </button>
+                                </div>
                                 <InputError message={errors.password} />
                             </div>
 
@@ -128,7 +170,7 @@ function Register() {
                                     type="text"
                                     name="nik"
                                     autoComplete="nik"
-                                    placeholder="Example"
+                                    placeholder="Masukkan NIK anda"
                                     value={data.nik}
                                     onChange={(e) =>
                                         setData("nik", e.target.value)
@@ -168,7 +210,7 @@ function Register() {
                                     type="text"
                                     name="tempat_lahir"
                                     autoComplete="tempat_lahir"
-                                    placeholder="Example"
+                                    placeholder="Masukkan tempat lahir anda"
                                     value={data.tempat_lahir}
                                     onChange={(e) =>
                                         setData("tempat_lahir", e.target.value)
@@ -183,10 +225,10 @@ function Register() {
                                 <Label htmlFor="no_hp">No HP</Label>
                                 <Input
                                     id="no_hp"
-                                    type="text"
+                                    type="number"
                                     name="no_hp"
                                     autoComplete="no_hp"
-                                    placeholder="Example"
+                                    placeholder="Masukkan dengan format 08..."
                                     value={data.no_hp}
                                     onChange={(e) =>
                                         setData("no_hp", e.target.value)
@@ -199,17 +241,23 @@ function Register() {
                             {/* umur */}
                             <div>
                                 <Label htmlFor="umur">Umur</Label>
-                                <Input
-                                    id="umur"
-                                    type="text"
-                                    name="umur"
-                                    autoComplete="umur"
-                                    placeholder="Example"
-                                    value={data.umur}
-                                    onChange={(e) =>
-                                        setData("umur", e.target.value)
-                                    }
-                                />
+                                <div className="relative">
+                                    <Input
+                                        id="umur"
+                                        type="text"
+                                        name="umur"
+                                        autoComplete="umur"
+                                        placeholder="Example"
+                                        value={data.umur}
+                                        disabled
+                                        onChange={(e) =>
+                                            setData("umur", e.target.value)
+                                        }
+                                    />
+                                    <span className="absolute inset-y-0 right-0 flex items-center p-3 text-white rounded-tr-md rounded-br-md bg-primary">
+                                        Tahun
+                                    </span>
+                                </div>
 
                                 <InputError message={errors.umur} />
                             </div>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
+use Carbon\Carbon;
 
 class AntrianController extends Controller
 {
@@ -33,5 +34,17 @@ class AntrianController extends Controller
         $antrian = $query->paginate($request->perpage ?? 10)->withQueryString();
 
         return Inertia::render('auth/admin/antrian/page', compact('antrian'));
+    }
+
+    public function noAntrian(Request $request): Response
+    {
+        $currentDate = Carbon::now()->format('Y-m-d');
+        $currentYear = Carbon::now()->year;
+
+        $antrian = RekamMedis::whereDate('created_at', $currentDate)
+            ->where('status', 'diperiksa')
+            ->first();
+
+        return Inertia::render('home/NoAntrian', compact('antrian'));
     }
 }

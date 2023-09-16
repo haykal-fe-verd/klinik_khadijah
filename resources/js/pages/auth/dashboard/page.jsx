@@ -70,6 +70,7 @@ function Dashboard() {
                         rekamMedisPasien={rekamMedisPasien}
                         statusSelesai={statusSelesai}
                         pembayaranSelesai={pembayaranSelesai}
+                        antrianBerjalan={antrianBerjalan}
                         chartPengeluaran={chartPengeluaran}
                         bulan={bulan}
                     />

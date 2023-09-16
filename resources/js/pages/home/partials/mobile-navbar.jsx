@@ -21,6 +21,7 @@ function MobileNavbar() {
         { name: "Tentang Kami", href: "#about" },
         { name: "Pelayanan", href: "#services" },
         { name: "Fasilitas", href: "#fasility" },
+        { name: "No. Antrian", href: route("no.antrian") },
         { name: "Pendaftaran Pasien", href: route("register") },
     ];
 

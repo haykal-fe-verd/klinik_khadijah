@@ -1,6 +1,8 @@
 import React from "react";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import ReCAPTCHA from "react-google-recaptcha";
+import Swal from "sweetalert2";
 
 import GuestLayout from "@/layouts/guest-layout";
 import { Button } from "@/components/ui/button";
@@ -16,14 +18,19 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 function Login() {
     const { klinik } = usePage().props;
+    const [showPassword, setShowPassword] = React.useState(false);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
         remember: false,
+        captcha: null,
     });
+    const [captchaVerified, setCaptchaVerified] = React.useState(false);
 
     React.useEffect(() => {
         return () => {
@@ -33,7 +40,22 @@ function Login() {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        post(route("login"));
+        if (captchaVerified) {
+            post(route("login"));
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Captcha",
+                text: "Silahkan masukkan captcha yang benar",
+                showConfirmButton: true,
+                confirmButtonColor: "#0f172a",
+            });
+        }
+    };
+
+    const handleCaptchaChange = (value) => {
+        setCaptchaVerified(true);
+        setData("captcha", value);
     };
 
     return (
@@ -77,17 +99,37 @@ function Login() {
                             {/* password */}
                             <div>
                                 <Label htmlFor="password">Password</Label>
-                                <Input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    placeholder="••••••••"
-                                    autoComplete="current-password"
-                                    value={data.password}
-                                    onChange={(e) =>
-                                        setData("password", e.target.value)
-                                    }
-                                />
+                                <div className="relative">
+                                    <Input
+                                        id="password"
+                                        name="password"
+                                        type={
+                                            showPassword ? "text" : "password"
+                                        }
+                                        placeholder="••••••••"
+                                        autoComplete="current-password"
+                                        value={data.password}
+                                        onChange={(e) =>
+                                            setData("password", e.target.value)
+                                        }
+                                    />
+                                    <button
+                                        type="button"
+                                        id="showPassword"
+                                        name="showPassword"
+                                        aria-label="showPassword"
+                                        className="absolute inset-y-0 right-0 flex items-center p-3 text-white rounded-tr-md rounded-br-md bg-primary"
+                                        onClick={() =>
+                                            setShowPassword(!showPassword)
+                                        }
+                                    >
+                                        {showPassword ? (
+                                            <EyeOff className="w-4 h-4" />
+                                        ) : (
+                                            <Eye className="w-4 h-4" />
+                                        )}
+                                    </button>
+                                </div>
                                 <InputError message={errors.password} />
                             </div>
 
@@ -119,7 +161,15 @@ function Login() {
                                 </Link>
                             </div>
                         </CardContent>
-                        <CardFooter>
+                        <CardFooter className={cn("flex flex-col gap-5")}>
+                            <div className="items-center justify-center w-full">
+                                {/* CAPTCHA */}
+                                <ReCAPTCHA
+                                    sitekey="6LfO4isoAAAAAHIHZV9UiJm5ZM1P1TLo7bOmmzI2"
+                                    onChange={handleCaptchaChange}
+                                />
+                            </div>
+
                             {/* button */}
                             <Button
                                 className="flex items-center justify-center w-full gap-3"

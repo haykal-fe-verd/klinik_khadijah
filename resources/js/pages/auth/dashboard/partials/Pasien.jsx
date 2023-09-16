@@ -81,6 +81,7 @@ function Pasien({
     pembayaranSelesai,
     chartPengeluaran,
     bulan,
+    antrianBerjalan,
 }) {
     return (
         <div className="space-y-10">
@@ -142,7 +143,7 @@ function Pasien({
                 </Card>
             </div>
 
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-1">
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
                 <Card className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
                     <CardContent className="flex flex-col items-center justify-center mt-5">
                         <h1 className="text-xl text-white">
@@ -154,6 +155,16 @@ function Pasien({
                                 bulan={bulan}
                             />
                         </div>
+                    </CardContent>
+                </Card>
+                <Card className="flex justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
+                    <CardContent className="flex flex-col items-center justify-center mt-5">
+                        <h1 className="text-xl text-white">
+                            Nomor Antrian Berjalan
+                        </h1>
+                        <h1 className="mt-16 font-bold text-7xl text-cyan-500">
+                            {antrianBerjalan?.nomor_antrian ?? "-"}
+                        </h1>
                     </CardContent>
                 </Card>
             </div>
