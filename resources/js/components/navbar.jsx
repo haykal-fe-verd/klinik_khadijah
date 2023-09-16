@@ -33,10 +33,50 @@ function Navbar() {
         });
     };
 
+    const [currentTime, setCurrentTime] = React.useState(new Date());
+    const [currentDate, setCurrentDate] = React.useState(new Date());
+
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentTime(new Date());
+            setCurrentDate(new Date());
+        }, 1000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
+
+    const options = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    };
+    const currentDateFormatted = currentDate.toLocaleDateString(
+        "id-ID",
+        options
+    );
+
+    const currentTimeFormatted = currentTime.toLocaleTimeString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+
     return (
         <div className="flex items-center p-4 shadow-md">
             <MobileSidebar />
             <div className="flex justify-end w-full space-x-3">
+                {/* tanggal */}
+                <div className="justify-center hidden px-4 py-2 text-sm font-medium text-white rounded-md lg:block bg-primary bg-opacity-20 hover:bg-opacity-30 focus:outl ine-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-75">
+                    {currentDateFormatted}
+                </div>
+
+                {/* jam */}
+                <div className="justify-center hidden px-4 py-2 text-sm font-medium text-white rounded-md lg:block bg-primary bg-opacity-20 hover:bg-opacity-30 focus:outl ine-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-75">
+                    {currentTimeFormatted}
+                </div>
+
                 <DropdownMenu>
                     <DropdownMenuTrigger>
                         <Avatar className="border border-slate-900">
