@@ -12,6 +12,7 @@ function Header() {
         { name: "Fasilitas", href: "#fasility" },
         { name: "No. Antrian", href: route("no.antrian") },
         { name: "Pendaftaran Pasien", href: route("register") },
+        { name: "Login", href: route("login") },
     ];
 
     return (
@@ -40,14 +41,6 @@ function Header() {
                             {item.name}
                         </Link>
                     ))}
-                </div>
-                <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <Link
-                        href={route("login")}
-                        className="text-sm font-semibold leading-6 text-gray-900"
-                    >
-                        Log in <span aria-hidden="true">&rarr;</span>
-                    </Link>
                 </div>
             </nav>
         </header>
