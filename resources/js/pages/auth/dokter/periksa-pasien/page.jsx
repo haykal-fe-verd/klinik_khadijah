@@ -1,6 +1,6 @@
 import React from "react";
 import { Head, useForm, usePage } from "@inertiajs/react";
-import { MoreVertical, PencilIcon } from "lucide-react";
+import { Check, MoreVertical, PencilIcon, X } from "lucide-react";
 
 import AuthLayout from "@/layouts/auth-layout";
 import { Separator } from "@/components/ui/separator";
@@ -53,6 +53,7 @@ function PeriksaPasien() {
         { name: "Keluhan", className: "" },
         { name: "No HP", className: "" },
         { name: "Status", className: "" },
+        { name: "Status Pembayaran", className: "" },
         { name: "@", className: "text-center" },
     ];
 
@@ -112,6 +113,17 @@ function PeriksaPasien() {
                                         {item.status === "selesai" && (
                                             <span className="p-2 text-black capitalize bg-green-300 rounded-lg">
                                                 {item.status}
+                                            </span>
+                                        )}
+                                    </TableCell>
+                                    <TableCell className="items-center text-center">
+                                        {item.status_pembayaran === 0 ? (
+                                            <span className="flex items-center justify-center">
+                                                <X className="items-center text-red-500" />
+                                            </span>
+                                        ) : (
+                                            <span className="flex items-center justify-center">
+                                                <Check className="items-center text-green-500" />
                                             </span>
                                         )}
                                     </TableCell>

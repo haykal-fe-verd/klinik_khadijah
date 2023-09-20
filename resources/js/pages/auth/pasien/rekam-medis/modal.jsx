@@ -46,7 +46,7 @@ function Modal({ isEdit, onSubmit, setData, data, errors, processing }) {
         <DialogContent>
             <DialogHeader>
                 <DialogTitle>
-                    {isEdit ? "Edit" : "Tambah"} Rekam Medis
+                    {isEdit ? "Edit" : "Tambah"} Keluhan
                     <Separator className="my-5" />
                 </DialogTitle>
                 <form onSubmit={onSubmit} className="space-y-5">
