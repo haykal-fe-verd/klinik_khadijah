@@ -19,16 +19,13 @@ function Fasility() {
                 <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
                     {pelayanan.map((item) => (
                         <div className="relative flex flex-col max-w-lg p-6 mx-auto text-center text-black border rounded-lg shadow-lg xl:p-8 bg-gradient-to-r from-sky-300 to-indigo-300">
-                            <div className="flex flex-col items-center justify-center w-full h-full backdrop-blur-lg" />
-
-                            <h3 className="mb-4 text-2xl font-semibold ">
+                            <div className="flex flex-col items-start justify-start w-full h-full" />
+                            <h3 className="mb-4 text-2xl font-semibold text-start ">
                                 {item.nama_pelayanan}
                             </h3>
-                            <div className="flex items-baseline justify-center my-8">
-                                <span className="mr-2 text-5xl font-extrabold text-white">
-                                    Rp. {item.harga} ,-
-                                </span>
-                            </div>
+                            <h4 className="text-3xl font-semibold text-white text-start">
+                                Rp. {item.harga} ,-
+                            </h4>
                         </div>
                     ))}
                 </div>
